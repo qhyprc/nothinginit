@@ -71,8 +71,10 @@ server.delete("/destinations", (req, res) => {
 
   // go find the object with that id and delete from the array
 });
+const PORT = process.env.PORT || 3000;
+//console.log(process.env.PORT);
 
-server.listen(3000, () => {
+server.listen(PORT, () => {
   console.log("Server listening");
 });
 
