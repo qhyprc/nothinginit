@@ -17,9 +17,9 @@ server.use(cors());
 // CREATE => POST
 server.post("/destinations", (req, res) => {
   const _id = getRandomId();
-  const {name, location} = req.body;
+  const {name, location, photo, description} = req.body;
 
-  destinations[_id] = { _id, name, location};
+  destinations[_id] = { _id, name, location, photo, description};
 
   res.send({ status: "success" });
 });
@@ -39,7 +39,7 @@ server.put("/destinations", (req, res) => {
   if (destinations[_id] === undefined){
     return res.status(410).send({message:"no destination with your id"})}
   const dest = destinations[_id];
-  const {name, location} = req.body;    
+  const {name, location, photo, description} = req.body;    
   if(name){
       dest.name = name;
       console.log("name")
@@ -48,6 +48,14 @@ server.put("/destinations", (req, res) => {
       dest.location = location;
       console.log("location")
     }
+    if(photo){
+      dest.name = photo;
+      console.log("photo")
+    }
+  if(description){
+      dest.location = description;
+      console.log("description")
+    }  
     res.send(destinations);  
 });
 
