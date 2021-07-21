@@ -1,81 +1,78 @@
 const express = require("express");
 const cors = require("cors");
-const {db:destinations} = require("./DB");
-const {getRandomId} = require("./HELPS");
-
-
+const { db: destinations } = require("./DB");
+const { getRandomId } = require("./HELPS");
 
 const server = express();
 
 server.use(express.json());
 server.use(cors());
 
-
-
-
 // CRUD
 // CREATE => POST
 server.post("/destinations", (req, res) => {
   const _id = getRandomId();
-  const {name, location, photo, description} = req.body;
+  const { name, location, photo, description } = req.body;
 
-  destinations[_id] = { _id, name, location, photo, description};
+  destinations[_id] = { _id, name, location, photo, description };
 
   res.send({ status: "success" });
 });
 
 // READ => GET
 server.get("/destinations", (req, res) => {
-  res.send(destinations);
+  if (req.query === "") {
+    res.send(destinations);
+  }
 });
 
 // UPDATE => PUT
 server.put("/destinations", (req, res) => {
-  const {_id} = req.query;  //const _id = req.query._id;
+  const { _id } = req.query; //const _id = req.query._id;
 
-  if (_id === undefined){
-    return res.status(400).send({message: "?_id required"})
+  if (_id === undefined) {
+    return res.status(400).send({ message: "?_id required" });
   }
-  if (destinations[_id] === undefined){
-    return res.status(410).send({message:"no destination with your id"})}
+  if (destinations[_id] === undefined) {
+    return res.status(410).send({ message: "no destination with your id" });
+  }
   const dest = destinations[_id];
-  const {name, location, photo, description} = req.body;    
-  if(name){
-      dest.name = name;
-      console.log("name")
-    }
-  if(location){
-      dest.location = location;
-      console.log("location")
-    }
-    if(photo){
-      dest.name = photo;
-      console.log("photo")
-    }
-  if(description){
-      dest.location = description;
-      console.log("description")
-    }  
-    res.send(destinations);  
+  const { name, location, photo, description } = req.body;
+  if (name) {
+    dest.name = name;
+    console.log("name");
+  }
+  if (location) {
+    dest.location = location;
+    console.log("location");
+  }
+  if (photo) {
+    dest.name = photo;
+    console.log("photo");
+  }
+  if (description) {
+    dest.location = description;
+    console.log("description");
+  }
+  res.send(destinations);
 });
 
-
-
-  // update
+// update
 
 // DELETE => DELETE
 
 server.delete("/destinations", (req, res) => {
-  const {_id} = req.query;  //const _id = req.query._id;
+  const { _id } = req.query; //const _id = req.query._id;
 
-  if (_id === undefined){
-    return res.status(400).send({message: "?_id required"})
+  if (_id === undefined) {
+    return res.status(400).send({ message: "?_id required" });
   }
-  if (destinations[_id] === undefined){
-    return res.status(410).send({message:"no destination with your id"})}
+  if (destinations[_id] === undefined) {
+    return res.status(410).send({ message: "no destination with your id" });
+  }
   console.log(destinations[_id]);
   delete destinations[_id];
-  res.send(destinations); 
+  res.send(destinations);
 
   // go find the object with that id and delete from the array
 });
@@ -85,7 +82,6 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log("Server listening");
 });
-
 
 // const express = require('express')
 // const cors = require("cors")
@@ -128,10 +124,8 @@ server.listen(PORT, () => {
 // server.put("/destinations", (req, res) => {
 //     const _id = req.query._id;
 
-
 //     destinations._id.location = req.body.location
 // });
- 
 
 // server.delete("/destinations", (req, res) => {
 //     const {_id} = req.query;
