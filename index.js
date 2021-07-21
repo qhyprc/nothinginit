@@ -21,9 +21,7 @@ server.post("/destinations", (req, res) => {
 
 // READ => GET
 server.get("/destinations", (req, res) => {
-  if (req.query === "") {
-    res.send(destinations);
-  }
+  res.send(destinations);
 });
 
 // UPDATE => PUT
