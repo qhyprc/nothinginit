@@ -21,7 +21,10 @@ server.post("/destinations", (req, res) => {
 
 // READ => GET
 server.get("/destinations", (req, res) => {
-  if (!req.query) {
+  if (req.query._id) {
+    const { _id } = req.query;
+    res.send(destinations[_id]);
+  } else {
     res.send(destinations);
   }
 });
